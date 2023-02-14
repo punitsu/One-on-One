@@ -60,7 +60,7 @@ router.delete('/refresh_token', (req,res)=> {
     try{
         res.clearCookie('refresh token')
         return res.status(200).json({message: 'Your token has been refreshed'})
-    }catch(error){
+    } catch(error){
         res.status(401).json({error:error.message})
     }
 })

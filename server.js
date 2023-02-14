@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use('/', express.static(join(__dirname,'public')));
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
-app.use('/api', profileRouter)
+app.use('/api', profileRouter);
 
 app.listen(PORT, ()=> `Server is listening ${PORT}`);
 
