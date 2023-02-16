@@ -3,13 +3,21 @@ import pool from '../db.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { jwtTokens } from '../utils/jwt.helpers.js';
+// import  registerSchema  from '../validation/userSchema';
+
+
 // import {jwtTokens} from '../utils/jwt-helpers.js';
 
 const router = express.Router();
 
-// router.post('login')
-
 router.post('/register', async(req,res) =>{
+
+    // const { error } = registerSchema.validate(req.body, { abortEarly: false });
+
+    // if (error) {
+    //   return res.status(400).json({ error: error.details });
+    // }
+  
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUser = await pool.query('INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *', 
