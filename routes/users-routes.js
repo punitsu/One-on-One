@@ -25,7 +25,7 @@ router.post('/interests',authenticateToken, async(req,res) => {
         const newUser = await pool.query('INSERT INTO interests (username, topic_id) VALUES ($1, $2) RETURNING *', 
         [username, rows[0]['topic_id']]);
         
-        res.json({username : username, topic: newUser});   
+        res.status(200).json({message: 'Your interest has been updated'})
     } catch(error){
         res.status(500).json({error:error.message});
     }
@@ -39,7 +39,7 @@ router.post('/update', async(req,res) =>{
         const updateUser = await pool.query('INSERT INTO hosts (username, bio, photo, website, linkedin) VALUES ($1, $2, $3, $4, $5) RETURNING *', 
         [username, req.body.bio, req.body.photo, req.body.website, req.body.linkedin]);
 
-        res.json({users:updateUser.rows[0]})
+        res.status(200).json({message: 'Congrats now you can set meetings!'})
     } catch(error){
         res.status(500).json({error:error.message})
     }
@@ -55,7 +55,7 @@ router.post('/expertise',authenticateToken, async(req,res) => {
         const newUser = await pool.query('INSERT INTO expertise (host_id, topic_id) VALUES ($1, $2) RETURNING *', 
         [hostid.rows[0]['host_id'], rows[0]['topic_id']]);
 
-        res.send(newUser)
+        res.status(200).json({message: 'Users can see and find you from your expertise!'})
         
     } catch(error){
         res.status(500).json({error:error.message});

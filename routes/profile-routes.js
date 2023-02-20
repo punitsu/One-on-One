@@ -43,7 +43,7 @@ router.post('/:username/comments',authenticateToken, async(req,res) => {
                         'INSERT INTO comments (host_id, username, comment) VALUES ($1, $2, $3)',
                         [hostid.rows[0]['host_id'], username, comment]
                         );
-                    res.status(201).json({ message: result });
+                        res.status(200).json({message: 'Comment has been added!'})
             }
             else{
                 res.status(500).json({error:"We dont allow toxic comments"});
@@ -73,7 +73,7 @@ router.post('/:username/rating',authenticateToken, async(req,res) => {
             [hostid.rows[0]['host_id'], username, rating]
           );
                 
-        res.status(201).json({ message: result });
+          res.status(200).json({message: 'Thanks for feedback!'})
 
 
     } catch(error){

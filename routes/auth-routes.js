@@ -12,19 +12,19 @@ const router = express.Router();
 
 router.post('/register', async(req,res) =>{
 
-    // const { error } = registerSchema.validate(req.body, { abortEarly: false });
+    const { error } = registerSchema.validate(req.body, { abortEarly: false });
 
-    // if (error) {
-    //   return res.status(400).json({ error: error.details });
-    // }
+    if (error) {
+      return res.status(400).json({ error: error.details });
+    }
   
     try{
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUser = await pool.query('INSERT INTO users (first_name, last_name, username, email, password) VALUES ($1, $2, $3, $4, $5) RETURNING *', 
         [req.body.first_name, req.body.last_name, req.body.username, req.body.email, hashedPassword]);
-        res.json({users:newUser.rows[0]})
+        res.status(500).json({error:"We dont allow toxic comments"});
     } catch(error){
-        res.status(500).json({error:error.message})
+        res.status(200).json({message: 'User has been added'})
     }
 })
 
